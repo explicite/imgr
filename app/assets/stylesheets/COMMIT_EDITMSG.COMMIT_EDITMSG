@@ -1,0 +1,237 @@
+SCCS
+
+# Add a full_title helper
+# --------------
+# Please enter the commit message for your changes. Everything below
+# this paragraph is ignored, and an empty message aborts the commit.
+# Just close the window to accept your message.
+diff --git a/Gemfile b/Gemfile
+index 3542672..60511e2 100644
+--- a/Gemfile
++++ b/Gemfile
+@@ -2,6 +2,7 @@ source 'https://rubygems.org'
+ 
+ gem 'rails', 			'3.2.3'
+ gem 'pg' 
++gem 'bootstrap-sass'
+ 
+ group :development, :test do
+ 	gem 'rspec-rails', 	'2.9.0'
+diff --git a/Gemfile.lock b/Gemfile.lock
+index b9aaa98..e27b748 100644
+--- a/Gemfile.lock
++++ b/Gemfile.lock
+@@ -29,6 +29,8 @@ GEM
+       i18n (~> 0.6)
+       multi_json (~> 1.0)
+     arel (3.0.2)
++    bootstrap-sass (2.3.1.0)
++      sass (~> 3.2)
+     builder (3.0.4)
+     capybara (1.1.2)
+       mime-types (>= 1.16)
+@@ -137,6 +139,7 @@ PLATFORMS
+   ruby
+ 
+ DEPENDENCIES
++  bootstrap-sass
+   capybara (= 1.1.2)
+   coffee-rails (= 3.2.2)
+   jquery-rails
+diff --git a/app/assets/stylesheets/custom.css.scss b/app/assets/stylesheets/custom.css.scss
+new file mode 100644
+index 0000000..ea84e91
+--- /dev/null
++++ b/app/assets/stylesheets/custom.css.scss
+@@ -0,0 +1,99 @@
++@import "bootstrap";
++
++/* universal */
++html {
++	overflow-y: scroll;
++}
++
++body {
++	padding-top: 60px;
++}
++
++section {
++	overflow: auto;
++}
++
++textarea {
++	resize: vertical;
++}
++
++.center {
++	text-align: center;
++}
++
++.center h1 {
++	margin-bottom: 10 px;
++}
++
++/* typography */
++h1, h2, h3, h4, h5, h6 {
++	line-height: 1;
++}
++
++h1 {
++	font-size: 3em;
++	letter-spacing: -2px;
++	margin-bottom: 30px;
++	text-align: center;
++}
++
++h2 {
++	font-size: 1.7em;
++	letter-spacing: -1px;
++	margin-bottom: 30px;
++	text-align: center;
++	font-weight: normal;
++	color: #999;
++}
++
++p {
++	font-size: 1.1em;
++	line-height: 1.7em;
++}
++
++/* header */
++#logo {
++	float: left;
++	margin-right: 10px;
++	font-size: 1.7em;
++	color: #999;
++	letter-spacing: -1px;
++	padding-top: 9px;
++	font-weight: bold;
++	line-height: 1;
++}
++
++#logo:hover {
++	color: #fff;
++	text-decoration: none;
++}
++
++/* footer */
++footer {
++	margin-top: 45px;
++	padding-top: 5px;
++	border-top: 1px solid #eaeaea;
++	color: #999;
++}
++
++footer a {
++	color: #555;
++}
++
++footer a:hover {
++	color: #222;
++}
++
++footer small {
++	float: left;
++}
++
++footer ul {
++	float: right;
++	list-style: none;
++}
++
++footer ul li {
++	float: left;
++	margin-left: 10px;
++}
+\ No newline at end of file
+diff --git a/app/views/layouts/_footer.html.erb b/app/views/layouts/_footer.html.erb
+new file mode 100644
+index 0000000..c1668a8
+--- /dev/null
++++ b/app/views/layouts/_footer.html.erb
+@@ -0,0 +1,12 @@
++<footer class="footer">
++	<small>
++		<a href='#'>Imgr app</a>
++	</small>
++	<nav>
++		<ul>
++			<li><%= link_to "About", '#' %></li>
++			<li><%= link_to "Contact", '#' %></li>
++			<li><a href='#'>News</a></li>
++		</ul>
++	</nav>
++</footer>
+\ No newline at end of file
+diff --git a/app/views/layouts/_header.html.erb b/app/views/layouts/_header.html.erb
+new file mode 100644
+index 0000000..8efb5b7
+--- /dev/null
++++ b/app/views/layouts/_header.html.erb
+@@ -0,0 +1,14 @@
++<header class="navbar navbar-fixed-top">
++	<div class="navbar-inner">
++		<div class="container">
++			<%= link_to "Imgr app", '#', id: "logo" %>
++			<nav> 
++				<ul class="nav pull-right">
++					<li><%= link_to "Home", '#' %></li>
++					<li><%= link_to "Help", '#' %></li>
++					<li><%= link_to "Sign in", '#' %></li>
++				</ul>
++			</nav>
++		</div>
++	</div>
++</header>
+\ No newline at end of file
+diff --git a/app/views/layouts/_shim.html.erb b/app/views/layouts/_shim.html.erb
+new file mode 100644
+index 0000000..efa9707
+--- /dev/null
++++ b/app/views/layouts/_shim.html.erb
+@@ -0,0 +1,3 @@
++<!--[if lt IE 9]>
++<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
++<![endif]-->
+\ No newline at end of file
+diff --git a/app/views/layouts/application.html.erb b/app/views/layouts/application.html.erb
+index 41cc404..e063d42 100644
+--- a/app/views/layouts/application.html.erb
++++ b/app/views/layouts/application.html.erb
+@@ -2,13 +2,16 @@
+ <html>
+ <head>
+   <title><%= full_title(yield(:title)) %></title>
+-  <%= stylesheet_link_tag    "application", :media => "all" %>
++  <%= stylesheet_link_tag    "application", media: "all" %>
+   <%= javascript_include_tag "application" %>
+   <%= csrf_meta_tags %>
++  <%= render 'layouts/shim' %>
+ </head>
+-<body>
+-
+-<%= yield %>
+-
+-</body>
++	<body>
++		<%= render 'layouts/header' %>
++		<div class="container">
++			<%= yield %>
++			<%= render 'layouts/footer' %>
++		</div>
++	</body>
+ </html>
+diff --git a/app/views/static_pages/home.html.erb b/app/views/static_pages/home.html.erb
+index 41d8b56..5c936e6 100644
+--- a/app/views/static_pages/home.html.erb
++++ b/app/views/static_pages/home.html.erb
+@@ -1,2 +1,7 @@
+-<h1>Imgr App</h1>
+-<p>ZTI project</p>
++<div class="center hero-unit">
++	<h1>Imgr App</h1>
++	<p>ZTI project</p>
++	<%= link_to "Sign up now!", '#', class: "btn bnt-large btn-primary" %>
++</div>
++
++<%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>
