@@ -11,6 +11,7 @@
 			<%= f.password_field :password %>
 
 			<%= f.submit "Sign in", class: "btn btn-parge btn-primary" %>
+			<%= link_to "with Facebook", "auth/facebook", class: "btn bnt-large btn-primary" %>
 		<% end %>
 		
 		<p>New user? <%= link_to "Sign up now!"	, signup_path %></p>

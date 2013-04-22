@@ -1,7 +1,9 @@
 <div class="center hero-unit">
 	<h1>Imgr App</h1>
 	<p>//TODO strona główna</p>
+	<% if !signed_in? %>
 	<%= link_to "Sign up now!", signup_path, class: "btn bnt-large btn-primary" %>
+	<% end %>
 </div>
 
 <%= link_to image_tag("logo.png", alt: "Rails"), '#' %>

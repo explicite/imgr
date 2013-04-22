@@ -16,6 +16,8 @@ Imgr::Application.routes.draw do
 
   match '/contact', to: 'static_pages#contact'
 
+  match '/auth/facebook/callback', to: 'sessions#from_facebook'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

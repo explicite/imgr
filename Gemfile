@@ -5,6 +5,8 @@ gem "pg"
 gem "bootstrap-sass"
 gem "bcrypt-ruby"
 gem "jquery-rails"
+gem "omniauth"							
+gem "omniauth-facebook"
 
 group :development, :test do
 	gem "rspec-rails", 				"2.9.0"
