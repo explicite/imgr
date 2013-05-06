@@ -1,4 +1,6 @@
 Imgr::Application.routes.draw do
+  resources :photos
+
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
 

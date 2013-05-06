@@ -7,6 +7,7 @@ gem "bcrypt-ruby"
 gem "jquery-rails"
 gem "omniauth"							
 gem "omniauth-facebook"
+gem "paperclip"
 
 group :development, :test do
 	gem "rspec-rails", 				"2.9.0"
