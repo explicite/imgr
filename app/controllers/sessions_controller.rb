@@ -28,8 +28,8 @@ class SessionsController < ApplicationController
 		    auth.save
 		  end
 		  
-		  sign_in user
-			redirect_to user
+		sign_in user
+		redirect_to user
 		
 		
 		

@@ -1,13 +1,14 @@
 source 'https://rubygems.org'
 
 gem "rails",								"3.2.3"			
-gem "pg" 
+gem 'sqlite3'
 gem "bootstrap-sass"
 gem "bcrypt-ruby"
 gem "jquery-rails"
 gem "omniauth"							
 gem "omniauth-facebook"
 gem "paperclip"
+gem "rmagick"
 
 group :development, :test do
 	gem "rspec-rails", 				"2.9.0"

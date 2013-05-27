@@ -41,6 +41,7 @@ class PhotosController < ApplicationController
   # POST /photos.json
   def create
     @photo = Photo.new(params[:photo])
+    @photo.user_id = self.current_user.id
 
     respond_to do |format|
       if @photo.save
@@ -51,6 +52,7 @@ class PhotosController < ApplicationController
         format.json { render json: @photo.errors, status: :unprocessable_entity }
       end
     end
+    flash[:notice] = @photo.flash_notice
   end
 
   # PUT /photos/1
@@ -73,6 +75,8 @@ class PhotosController < ApplicationController
   # DELETE /photos/1.json
   def destroy
     @photo = Photo.find(params[:id])
+    @photo.image = nil
+    @photo.save
     @photo.destroy
 
     respond_to do |format|
