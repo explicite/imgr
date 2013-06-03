@@ -9,6 +9,8 @@ gem "omniauth"
 gem "omniauth-facebook"
 gem "paperclip"
 gem "rmagick"
+gem 'will_paginate', '~> 3.0.0'
+gem 'fancybox-rails'
 
 group :development, :test do
 	gem "rspec-rails", 				"2.9.0"

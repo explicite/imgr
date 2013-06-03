@@ -4,9 +4,12 @@ require 'win32ole'
 
 class Photo < ActiveRecord::Base
   attr_accessible :user_id, :image, :red, :green, :blue
-  has_attached_file :image
-
+  has_attached_file :image, :styles => { :thumb => "100x100>" }
+  self.per_page = 10
   attr_accessor :flash_notice
+
+	validates :image, :attachment_presence => true
+	validates_attachment_content_type :image, :content_type => /^image\/(jpg|jpeg|pjpeg|png|x-png|gif)$/, :message => 'file type is not allowed (only jpeg/png/gif images)'
 
   after_save :count_colors 
 
