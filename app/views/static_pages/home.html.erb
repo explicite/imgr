@@ -1,6 +1,8 @@
 <div class="center hero-unit">
-	<h1>Imgr App</h1>
-	<p>//TODO strona główna</p>
+	<% @photos = Photo.all %>
+	<% @photos.each do |photo| %>
+    <%= link_to(image_tag(photo.image.url(:thumb)), photo.image.url(:original) ,:class=>"fancybox")%>
+<% end %>
 	<% if !signed_in? %>
 	<%= link_to "Sign up now!", signup_path, class: "btn bnt-large btn-primary" %>
 	<% end %>
