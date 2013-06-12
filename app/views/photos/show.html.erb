@@ -1,7 +1,7 @@
 
 <p>
-  <b>User:</b>
-  <%= @photo.user_id %>
+  <% @user = User.find(@photo.user_id) %>
+  <%= @user.name %>
   <%= image_tag @photo.image.url %>
 </p>
 
@@ -9,9 +9,9 @@
 <%= link_to 'Edit', edit_photo_path(@photo), class: "btn bnt-large" %>  
 <%= link_to 'Back', photos_path, class: "btn bnt-large" %> 
 <br/>
-<b>Recent:</b>
+<b>Similar:</b>
 <br/>
-<% @photos = Photo.where("color > ? AND color < ?", (@photo.color - 900000000),  (@photo.color + 900000000)) %>
+<% @photos = Photo.where("color > ? AND color < ? AND id != ?", (@photo.color - 900000000),  (@photo.color + 900000000), @photo.id) %>
 <% @photos.each do |photo| %>
     <%= link_to(image_tag(photo.image.url(:thumb)), photo.image.url(:original) ,:class=>"fancybox")%>
 <% end %>
