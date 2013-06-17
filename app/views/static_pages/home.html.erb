@@ -1,7 +1,7 @@
 <div class="center hero-unit">
 	<% @photos = Photo.all %>
 	<% @photos.each do |photo| %>
-    <%= link_to(image_tag(photo.image.url(:thumb)), photo.image.url(:original) ,:class=>"fancybox")%>
+    <%= link_to(image_tag(photo.image.url(:thumb)), photo)%>
 <% end %>
 	<% if !signed_in? %>
 	<%= link_to "Sign up now!", signup_path, class: "btn bnt-large btn-primary" %>

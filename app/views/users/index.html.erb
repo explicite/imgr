@@ -1,0 +1,15 @@
+<% provide(:title, 'All users') %>
+<h1>All users</h1>
+
+<ul class="users">
+  <% @users.each do |user| %>
+  <% @photos = Photo.where("user_id = ?", user.id).limit(7)%>
+    <li>
+    	<%= link_to user.name, user %>
+      <%= gravatar_for user, size: 52 %><br><br>
+      <% @photos.each do |photo| %>
+    		<%= link_to(image_tag(photo.image.url(:thumb)), photo.image.url(:original) ,:class=>"fancybox")%>
+			<% end %>
+    </li>
+  <% end %>
+</ul>
