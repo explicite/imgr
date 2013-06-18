@@ -1,4 +1,5 @@
 class PhotosController < ApplicationController
+  before_filter :signed_in_user, only: [:new, :edit, :update]
   # GET /photos
   # GET /photos.json
   def index
@@ -84,4 +85,20 @@ class PhotosController < ApplicationController
       format.json { head :no_content }
     end
   end
+private
+    def signed_in_user
+      unless signed_in?
+        store_location
+        redirect_to signin_url, notice: "Please sign in."
+      end
+    end
+
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to(root_path) unless current_user?(@user)
+    end
+
+
 end
+
+
